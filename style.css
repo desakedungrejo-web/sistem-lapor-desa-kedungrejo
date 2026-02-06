@@ -1,0 +1,448 @@
+/* RESET DASAR */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden; /* Mencegah scroll pada body utama */
+}
+
+/* HEADER TETAP DI ATAS */
+.main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background-color: #0f6b45;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 2000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    box-sizing: border-box;
+}
+
+/* Kontainer Utama di Kiri Header */
+.header-left {
+    display: flex;
+    flex-direction: row;  /* Memastikan logo dan teks berjejer ke samping */
+    align-items: center;  /* Memastikan logo dan teks rata tengah secara vertikal */
+    gap: 12px;            /* Jarak antara logo dan teks */
+    flex: 1;
+}
+
+.header-center {
+    flex: 5; /* Memberi ruang lebih besar di tengah agar judul diutamakan */
+    text-align: center;
+}
+
+
+/* Logo Utama */
+.logo-utama {
+    height: 55px;         /* Sesuaikan tinggi logo agar pas */
+    width: auto;
+}
+
+/* Kotak Teks di Samping Logo */
+.instansi-text {
+    display: flex;
+    flex-direction: column; /* Membuat tulisan Desa dan Kabupaten menumpuk vertikal */
+    justify-content: center;
+    text-align: left;       /* Memastikan teks rata kiri */
+}
+
+.instansi-text h2 {
+    margin: 0;
+    font-size: 1.1em;
+    font-weight: bold;
+    line-height: 1.2;
+    color: white;
+}
+
+.instansi-text p {
+    margin: 0;
+    font-size: 0.85em;
+    font-weight: normal;
+    color: white;
+    opacity: 0.9;
+}
+
+.logo-partner { height: 45px; }
+
+/* MAP FULLSCREEN */
+#map {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+/* SIDEBAR SLIDING */
+.sidebar {
+    position: fixed;
+    top: 70px; /* Di bawah header */
+    left: -350px; /* Tersembunyi di kiri */
+    width: 350px;
+    height: calc(100% - 70px);
+    background: white;
+    z-index: 1500;
+    transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar.active {
+    left: 0;
+}
+
+/* TOMBOL PANAH (TOGGLE) */
+.toggle-sidebar {
+    position: absolute;
+    right: -40px;
+    top: 20px;
+    width: 40px;
+    height: 50px;
+    background: #0f6b45;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 0 8px 8px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+}
+
+/* FORM DI DALAM SIDEBAR */
+.form-container {
+    padding: 20px;
+    overflow-y: auto; /* Bisa scroll jika form panjang */
+}
+
+.form-container h3 { margin-top: 0; color: #0f6b45; }
+
+form label { display: block; margin-top: 15px; font-weight: bold; }
+
+form select, form textarea, form button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+form button {
+    background: #0f6b45;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    transition: 0.3s;
+}
+
+form button:hover { background: #084d31; }
+
+#btnKamera { background: #f39c12; margin-bottom: 10px; }
+#btnAmbilLokasi { background: #3498db; }
+
+/* BADGES */
+.badge { padding: 2px 8px; border-radius: 10px; font-size: 0.75em; color: white; }
+.badge-merah { background: #e74c3c; }
+.badge-hijau { background: #2ecc71; }
+
+/* LABEL DESA */
+/* Label Desa Umum */
+.label-desa {
+    background: none !important;
+    border: none !important;
+    color: #000000;
+    font-weight: bold;
+    /* Teknik 8 arah bayangan agar sangat solid */
+    text-shadow: 
+         2px  2px 0px #ffffff,
+        -2px  2px 0px #ffffff,
+         2px -2px 0px #ffffff,
+        -2px -2px 0px #ffffff,
+         0px  2px 0px #ffffff,
+         0px -2px 0px #ffffff,
+         2px  0px 0px #ffffff,
+        -2px  0px 0px #ffffff,
+         0px  0px 10px #ffffff; /* Tambahan pendaran halus */
+    white-space: nowrap;
+}
+
+/* Khusus Label Kedungrejo */
+.label-kedungrejo {
+    color: #084d31 !important;
+    font-size: 16px !important;
+    text-transform: uppercase;
+}
+
+/* Label Kecamatan Kerek */
+.label-kecamatan {
+    background: none !important;
+    border: none !important;
+    color: #0f6b45;
+    font-weight: 900;
+    font-size: 22px !important;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 
+         3px  3px 0px #ffffff,
+        -3px  3px 0px #ffffff,
+         3px -3px 0px #ffffff,
+        -3px -3px 0px #ffffff,
+         0px  3px 0px #ffffff,
+         0px -3px 0px #ffffff,
+         3px  0px 0px #ffffff,
+        -3px  0px 0px #ffffff,
+         0px  0px 10px #ffffff;
+}
+
+/* --- LEGENDA SLIDING (KANAN) --- */
+.legend-container {
+    position: fixed;
+    /* Posisi di bawah Basemap Control */
+    top: 130px; 
+    right: -230px; /* Sembunyikan konten (230px), sisakan tombol (40px) */
+    width: 270px;  /* Total: Konten (230) + Tombol (40) */
+    height: auto;
+    background: transparent;
+    z-index: 1100;
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: flex-start;
+}
+
+.legend-container.active {
+    right: 0; /* Geser semua ke kiri hingga terlihat penuh */
+}
+
+/* Tombol Panah (Pegangan Legenda) */
+.toggle-legend {
+    width: 40px;
+    height: 50px;
+    background: #0f6b45;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px 0 0 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.2);
+}
+
+/* Konten Legenda (Kotak Putih) */
+.legend-content {
+    width: 230px;
+    background: white;
+    padding: 15px;
+    box-shadow: -2px 2px 10px rgba(0,0,0,0.2);
+    border-bottom-left-radius: 8px;
+    box-sizing: border-box;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.legend-content h4 {
+    margin: 0 0 10px 0;
+    border-bottom: 2px solid #0f6b45;
+    padding-bottom: 5px;
+}
+
+/* --- Penyesuaian Header untuk Smartphone --- */
+@media (max-width: 768px) {
+    .main-header {
+        flex-wrap: wrap;        /* Memungkinkan elemen turun ke baris baru */
+        height: auto;           /* Tinggi header menyesuaikan konten */
+        padding: 15px 10px;
+        justify-content: space-between;
+    }
+
+    /* 1. Bagian Kiri (Logo Tuban & Teks) - Tetap Berjejer Samping */
+    .header-left {
+        order: 1;               /* Urutan pertama */
+        flex: 0 0 auto;         /* Lebar sesuai konten */
+        display: flex;
+        flex-direction: row;    /* KUNCI: Logo & Teks tetap di samping */
+        align-items: center;
+        gap: 8px;
+    }
+
+    .logo-utama {
+        height: 38px;           /* Logo sedikit dikecilkan di HP */
+    }
+
+    .instansi-text h2 {
+        font-size: 0.85em;      /* Ukuran teks desa diperkecil */
+        line-height: 1.1;
+    }
+
+    .instansi-text p {
+        font-size: 0.7em;       /* Ukuran teks kabupaten diperkecil */
+    }
+
+    /* 2. Bagian Kanan (Logo Partner) - Pojok Kanan Atas */
+    .header-right {
+        order: 2;               /* Urutan kedua */
+        flex: 0 0 auto;
+        justify-content: flex-end;
+        gap: 5px;
+    }
+
+    .logo-partner {
+        height: 27px;           /* Logo partner dikecilkan */
+    }
+
+    /* 3. Bagian Tengah (Judul Sistem) - Turun ke Baris Bawah */
+    .header-center {
+        order: 3;               /* Urutan ketiga (baris baru) */
+        flex: 0 0 100%;         /* Mengambil 100% lebar layar */
+        text-align: center;
+        margin-top: 15px;       /* Jarak dari baris logo di atasnya */
+        border-top: 1px solid rgba(255,255,255,0.2); /* Garis pemisah tipis */
+        padding-top: 10px;
+    }
+
+    .header-center h1 {
+        font-size: 1.1em;
+        margin: 0;
+    }
+    /* 1. Geser tombol pilih peta (Layer Control) ke bawah agar tidak tertutup header */
+    .leaflet-top.leaflet-right {
+        margin-top: 135px !important; /* Nilai ini disesuaikan dengan tinggi header mobile */
+        z-index: 1000 !important;
+    }
+
+    /* 2. Geser juga tombol zoom (jika ada di kanan atas) */
+    .leaflet-top.leaflet-left {
+        margin-top: 135px !important;
+        z-index: 1000 !important;
+    }
+    /* Penyesuaian Sidebar Toggle agar tidak menabrak header */
+    .sidebar {
+        top: 130px;             /* Sesuaikan karena header mobile lebih tinggi */
+        height: calc(100% - 130px);
+    }
+    .legend-container {
+        /* Header Mobile lebih tinggi, maka posisi diturunkan lagi */
+        top: 10px; 
+    }
+}
+
+/* Memastikan ikon pilih peta (Leaflet Control) berada di atas semua elemen */
+.leaflet-top.leaflet-right {
+    margin-top: 80px; /* Memberi jarak agar tidak tertutup header */
+    z-index: 1000 !important;
+}
+
+/* Memperbesar ikon agar lebih mudah diklik di HP */
+.leaflet-control-layers-toggle {
+    width: 44px !important;
+    height: 44px !important;
+    background-size: 26px 26px !important;
+}
+
+/* Menyesuaikan posisi zoom agar tidak tertutup tombol sliding */
+.leaflet-bottom.leaflet-right {
+    margin-bottom: 20px;
+    z-index: 1000 !important;
+}
+
+/* Container Filter Tanggal di Sidebar */
+.filter-box {
+    background: #f9f9f9;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+}
+
+.filter-box h4 { margin: 0 0 10px 0; font-size: 0.9em; color: #0f6b45; }
+
+.date-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.date-inputs input {
+    padding: 5px;
+    font-size: 0.85em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.filter-btns {
+    display: flex;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.filter-btns button {
+    flex: 1;
+    padding: 6px;
+    font-size: 0.8em;
+}
+
+/* Row untuk Koordinat Manual */
+.coord-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.coord-row div { flex: 1; }
+
+.coord-row label {
+    font-size: 0.75em !important;
+    margin-top: 0 !important;
+    color: #555;
+}
+
+.coord-row input {
+    width: 100%;
+    padding: 8px;
+    font-size: 0.85em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Efek Blue Dot Pulsing (Lokasi Real-time) */
+.blue-dot {
+    width: 15px;
+    height: 15px;
+    background-color: #4285F4;
+    border: 3px solid white;
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+.blue-dot-container::after {
+    content: '';
+    display: block;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #4285F4;
+    animation: pulse-blue 2s infinite;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+@keyframes pulse-blue {
+    0% { transform: scale(1); opacity: 0.6; }
+    100% { transform: scale(3); opacity: 0; }
+}

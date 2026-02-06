@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta name="google-site-verification" content="Gq45ULl-X0JfFXhp1reTex84GGEWe6wTbO41g2Jrv58" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Sistem Lapor Desa Kedungrejo - Layanan Pengaduan Masyarakat</title>
+
+    <meta name="description" content="Sistem Informasi Geografis (Web GIS) Desa Kedungrejo, Kecamatan Kerek, Tuban. Laporkan masalah jalan rusak, sampah, dan irigasi secara real-time.">
+    <meta name="keywords" content="Kedungrejo, Kerek, Tuban, Sistem Lapor Desa, Web GIS, Pengaduan Masyarakat, KKN-PPM UGM Svara Tuban 2026">
+    <meta name="author" content="KKN-PPM UGM Svara Tuban 2026">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://nama-website-anda.netlify.app/">
+    <meta property="og:title" content="Sistem Lapor Desa Kedungrejo">
+    <meta property="og:description" content="Laporkan masalah infrastruktur di Desa Kedungrejo melalui peta interaktif secara cepat dan mudah.">
+    <meta property="og:image" content="https://nama-website-anda.netlify.app/thumbnail.png">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-left">
+            <img src="images/LogoTuban.png" alt="Logo Kab Tuban" class="logo-utama">
+            <div class="instansi-text">
+                <h2 id="namaDesa">DESA KEDUNGREJO</h2>
+                <p id="namaKab">Kabupaten Tuban</p>
+            </div>
+        </div>
+        <div class="header-center">
+            <h1 style="font-size: 1.05em;">SISTEM LAPOR DESA KEDUNGREJO</h1>
+        </div>
+        <div class="header-right">
+            <img src="images/Logo KKN Svara Tuban.png" alt="Logo Partner 1" class="logo-partner">
+            <img src="images/Logo KKN-PPM UGM.png" alt="Logo Partner 1" class="logo-partner">
+            <img src="images/Lambang_UGM_Real.png" alt="Logo Partner 2" class="logo-partner">
+        </div>
+    </header>
+
+    <div id="sidebar" class="sidebar">
+    <button id="toggleBtn" class="toggle-sidebar">→</button>
+    <div class="form-container">
+        <div class="filter-box">
+            <h4>🔍 Filter Waktu Laporan</h4>
+            <div class="date-inputs">
+                <input type="date" id="filterTglMulai" title="Tanggal Mulai">
+                <input type="date" id="filterTglSelesai" title="Tanggal Akhir">
+            </div>
+            <div class="filter-btns">
+                <button type="button" id="btnTerapkanFilter">Filter</button>
+                <button type="button" id="btnResetFilter" style="background:#666">Semua</button>
+            </div>
+            <p id="infoFilter" style="font-size:0.75em; margin-top:5px; color:#666;">Menampilkan semua data</p>
+        </div>
+
+        <h3>Lapor Permasalahan</h3>
+        <form id="laporForm">
+            <label>Pilih Kategori:</label>
+            <select id="kategori">
+                <option value="rusak">Infrastruktur Bermasalah</option>
+                <option value="sampah">Titik Sampah Liar</option>
+                <option value="irigasi">Irigasi Bermasalah</option>
+                <option value="lainnya">Lainnya</option>
+                    <style>
+                        option[value="lainnya"] {
+                            font-style: italic;
+                            color: #999; /* abu-abu */
+                        }
+                    </style>
+            </select>
+
+            <label>Foto Lokasi:</label>
+            <input type="file" id="inputGambar" accept="image/*" capture="environment" style="display:none">
+            <button type="button" id="btnKamera">📷 Ambil Foto</button>
+            <p id="namaFile" style="font-size:0.8em">Belum ada foto</p>
+
+            <label>Titik Lokasi:</label>
+            <button type="button" id="btnAmbilLokasi">📡 Gunakan GPS HP</button>
+            
+            <div class="coord-row">
+                <div>
+                    <label>Latitude</label>
+                    <input type="number" step="any" id="manualLat" placeholder="-6.8xxx">
+                </div>
+                <div>
+                    <label>Longitude</label>
+                    <input type="number" step="any" id="manualLon" placeholder="111.8xxx">
+                </div>
+            </div>
+            
+            <p id="lokasiStatus" style="font-size:0.8em; margin-top:10px;">Status: Belum ada Lokasi</p>
+            <small>(Atau klik langsung pada peta)</small>
+
+            <label>Keterangan:</label>
+            <textarea id="keterangan" placeholder="Detail laporan..."></textarea>
+
+            <button type="submit" style="margin-top:20px; background:#27ae60">Kirim Laporan</button>
+        </form>
+    </div>
+</div>
+
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="script.js"></script>
+</body>
+</html>
